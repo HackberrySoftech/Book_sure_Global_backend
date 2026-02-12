@@ -1,5 +1,5 @@
 import db from "../../config/db.js";
-const BASE_URL = process.env.APP_URL || "http://localhost:8000";
+const REACT_BASE_URL = process.env.APP_URL || "http://localhost:8000";
 
 export const getSoftwareSectionMaster = (req, res) => {
   const sql = `
@@ -67,7 +67,7 @@ export const getSoftware = (req, res) => {
           images: images.map((img) => ({
             id: img.id,
             isActive: img.isActive,
-            image: `${BASE_URL}/${img.image}`,
+            image: `${REACT_BASE_URL}/${img.image}`,
           })),
         },
       });
@@ -199,7 +199,7 @@ export const getSoftwareById = (req, res) => {
       data: {
         id: rows[0].id,
         isActive: rows[0].isActive,
-        image: `${BASE_URL}/${rows[0].image}`,
+        image: `${REACT_BASE_URL}/${rows[0].image}`,
       },
     });
   });
@@ -220,7 +220,7 @@ export const getSoftwareActive = (req, res) => {
       success: true,
       data: rows.map((r) => ({
         id: r.id,
-        image: `${BASE_URL}/${r.image}`,
+        image: `${REACT_BASE_URL}/${r.image}`,
       })),
     });
   });
@@ -241,7 +241,7 @@ export const getSoftwareInactive = (req, res) => {
       success: true,
       data: rows.map((r) => ({
         id: r.id,
-        image: `${BASE_URL}/${r.image}`,
+        image: `${REACT_BASE_URL}/${r.image}`,
       })),
     });
   });

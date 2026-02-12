@@ -1,5 +1,5 @@
 import db from "../../config/db.js";
-const BASE_URL = process.env.BASE_URL || "http://localhost:8000";
+const REACT_BASE_URL = process.env.REACT_BASE_URL || "http://localhost:8000";
 
 export const getImageUrl = (file) => {
   if (!file) return null;
@@ -9,11 +9,11 @@ export const getImageUrl = (file) => {
 
   // ✅ If stored with /uploads already
   if (file.startsWith("/uploads")) {
-    return `${BASE_URL}${file}`;
+    return `${REACT_BASE_URL}${file}`;
   }
 
   // ✅ Only filename stored
-  return `${BASE_URL}/uploads/whychosseus/${file}`;
+  return `${REACT_BASE_URL}/uploads/whychosseus/${file}`;
 };
 
 

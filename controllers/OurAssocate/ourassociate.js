@@ -1,5 +1,5 @@
 import db from "../../config/db.js";
-const BASE_URL = process.env.BASE_URL || "http://localhost:8000";
+const REACT_BASE_URL = process.env.REACT_BASE_URL || "http://localhost:8000";
 
 export const getImageUrl = (folder, filename) => {
   if (!filename) return null;
@@ -7,7 +7,7 @@ export const getImageUrl = (folder, filename) => {
   // ✅ Already full URL? Return directly
   if (filename.startsWith("http")) return filename;
 
-  return `${BASE_URL}/uploads/${folder}/${filename}`;
+  return `${REACT_BASE_URL}/uploads/${folder}/${filename}`;
 };
 export const addFounder = (req, res) => {
   const { name, designation, description } = req.body;

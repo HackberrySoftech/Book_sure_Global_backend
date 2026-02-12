@@ -1,5 +1,5 @@
 import db from "../../config/db.js";
-const BASE_URL = process.env.BASE_URL || "http://localhost:8000";
+const REACT_BASE_URL = process.env.REACT_BASE_URL || "http://localhost:8000";
 
 // title section
 
@@ -115,7 +115,7 @@ export const getTeamMembers = (req, res) => {
       success: true,
       data: rows.map((item) => ({
         ...item,
-        // image: item.image ? `${BASE_URL}/uploads/team/${item.image}` : null,
+        // image: item.image ? `${REACT_BASE_URL}/uploads/team/${item.image}` : null,
       })),
     });
   });
@@ -352,7 +352,7 @@ export const getActiveTeamMembers = (req, res) => {
         success: true,
         data: rows.map((item) => ({
           ...item,
-          // image: item.image ? `${BASE_URL}/uploads/team/${item.image}` : null,
+          // image: item.image ? `${REACT_BASE_URL}/uploads/team/${item.image}` : null,
         })),
       });
     },
@@ -375,7 +375,7 @@ export const getInactiveTeamMembers = (req, res) => {
         success: true,
         data: rows.map((item) => ({
           ...item,
-          // image: item.image ? `${BASE_URL}/uploads/team/${item.image}` : null,
+          // image: item.image ? `${REACT_BASE_URL}/uploads/team/${item.image}` : null,
         })),
       });
     },
@@ -416,7 +416,7 @@ export const getTeamMemberById = (req, res) => {
       message: "Team member fetched successfully",
       data: {
         ...member,
-        // image: member.image ? `${BASE_URL}/uploads/team/${member.image}` : null,
+        // image: member.image ? `${REACT_BASE_URL}/uploads/team/${member.image}` : null,
       },
     });
   });

@@ -1,6 +1,6 @@
 import db from "../../config/db.js";
 
-const BASE_URL = process.env.APP_URL || "http://localhost:8000";  
+const REACT_BASE_URL = process.env.APP_URL || "http://localhost:8000";  
 export const getHomeHelp = (req, res) => {
   const sql = `
     SELECT
@@ -13,7 +13,7 @@ export const getHomeHelp = (req, res) => {
     LIMIT 1
   `;
 
-  const BASE_URL = process.env.APP_URL || "http://localhost:8000";
+  const REACT_BASE_URL = process.env.APP_URL || "http://localhost:8000";
 
   db.query(sql, (err, results) => {
     if (err) {
@@ -37,7 +37,7 @@ export const getHomeHelp = (req, res) => {
       data: {
         ...data,
         mainimage: data.mainimage
-          ? `${BASE_URL}/${data.mainimage}`
+          ? `${REACT_BASE_URL}/${data.mainimage}`
           : null,
       },
     });

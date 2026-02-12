@@ -1,6 +1,6 @@
 import db from "../config/db.js";
 
-const BASE_URL = process.env.BASE_URL || "http://localhost:8000";
+const REACT_BASE_URL = process.env.REACT_BASE_URL || "http://localhost:8000";
 
 const getSettings = (req, res) => {
   const sql = `
@@ -28,8 +28,8 @@ const getSettings = (req, res) => {
       success: true,
       data: {
         ...result[0],
-        Logo: result[0]?.Logo ? `${BASE_URL}/${result[0].Logo}` : null,
-        Favicon: result[0]?.Favicon ? `${BASE_URL}/${result[0].Favicon}` : null,
+        Logo: result[0]?.Logo ? `${REACT_BASE_URL}/${result[0].Logo}` : null,
+        Favicon: result[0]?.Favicon ? `${REACT_BASE_URL}/${result[0].Favicon}` : null,
       },
     });
   });

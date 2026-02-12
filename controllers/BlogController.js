@@ -1,5 +1,5 @@
 import db from "../config/db.js";
-const BASE_URL = process.env.BASE_URL || "http://localhost:8000";
+const REACT_BASE_URL = process.env.REACT_BASE_URL || "http://localhost:8000";
 export const createBlog = (req, res) => {
   const {
     title,
@@ -86,7 +86,7 @@ export const getActiveBlogs = (req, res) => {
     const data = rows.map((item) => ({
       ...item,
       thumbnail_image: item.thumbnail_image
-        ? `${BASE_URL}/uploads/${item.thumbnail_image}`
+        ? `${REACT_BASE_URL}/uploads/${item.thumbnail_image}`
         : null,
     }));
 
@@ -150,7 +150,7 @@ export const getBlogById = (req, res) => {
     const blog = rows[0];
 
     blog.thumbnail_image = blog.thumbnail_image
-      ? `${BASE_URL}/uploads/${blog.thumbnail_image}`
+      ? `${REACT_BASE_URL}/uploads/${blog.thumbnail_image}`
       : null;
 
     blog.bullet_points = JSON.parse(blog.bullet_points || "[]");

@@ -1,5 +1,5 @@
 import db from "../../config/db.js";
-const BASE_URL = process.env.APP_URL || "http://localhost:8000";
+const REACT_BASE_URL = process.env.APP_URL || "http://localhost:8000";
 
 export const addSubService = (req, res) => {
   const { service_id, title, description, points } = req.body;
@@ -67,7 +67,7 @@ export const getSubServicesBySlug = (req, res) => {
         description: r.description,
         points: JSON.parse(r.points || "[]"),
         is_active: r.is_active,
-        image: r.image ? `${BASE_URL}/${r.image}` : null,
+        image: r.image ? `${REACT_BASE_URL}/${r.image}` : null,
       }));
 
       res.json({
@@ -104,7 +104,7 @@ export const getInActiveSubServicesBySlug = (req, res) => {
         description: r.description,
         points: JSON.parse(r.points || "[]"),
         is_active: r.is_active,
-        image: r.image ? `${BASE_URL}/${r.image}` : null,
+        image: r.image ? `${REACT_BASE_URL}/${r.image}` : null,
       }));
 
       res.json({
@@ -240,7 +240,7 @@ export const getSubServiceById = (req, res) => {
         description: subService.description,
         points: JSON.parse(subService.points || "[]"),
         is_active: subService.is_active,
-        image: subService.image ? `${BASE_URL}/${subService.image}` : null,
+        image: subService.image ? `${REACT_BASE_URL}/${subService.image}` : null,
       },
     });
   });

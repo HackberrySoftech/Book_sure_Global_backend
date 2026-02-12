@@ -1,5 +1,5 @@
 import db from "../../config/db.js";
-const BASE_URL = process.env.APP_URL || "http://localhost:8000";
+const REACT_BASE_URL = process.env.APP_URL || "http://localhost:8000";
 export const getHero = (req, res) => {
   const sql = `
     SELECT 

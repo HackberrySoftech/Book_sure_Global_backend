@@ -2,13 +2,12 @@ import db from "../config/db.js";
 import mailTransporter from "../config/Mail.js";
 import path from "path";
 export const submitCareerApplication = (req, res) => {
-  const { full_name, position, email, phone, gender, date_of_birth } =
-    req.body || {};
+  const { full_name, position, email, phone } = req.body || {};
 
   const resume = req.file ? req.file.filename : null;
 
   // ✅ Validation
-  if (!full_name || !position || !email || !phone || !gender) {
+  if (!full_name || !position || !email || !phone) {
     return res.status(400).json({
       success: false,
       message: "All required fields must be filled",
@@ -17,10 +16,10 @@ export const submitCareerApplication = (req, res) => {
 
   // 1️⃣ Save application
   db.query(
-    `INSERT INTO career_applications
-     (full_name, position, email, phone, gender, date_of_birth, resume)
-     VALUES (?,?,?,?,?,?,?)`,
-    [full_name, position, email, phone, gender, date_of_birth || null, resume],
+    `INSERT INTO career_applications  
+     (full_name, position, email, phone, resume)
+     VALUES (?,?,?,?,?)`,
+    [full_name, position, email, phone, resume],
     (err) => {
       if (err) {
         console.error("DB Error:", err);
@@ -64,9 +63,7 @@ export const submitCareerApplication = (req, res) => {
                 <p><b>Name:</b> ${full_name}</p>
                 <p><b>Position:</b> ${position}</p>
                 <p><b>Email:</b> ${email}</p>
-                <p><b>Phone:</b> ${phone}</p>
-                <p><b>Gender:</b> ${gender}</p>
-                <p><b>DOB:</b> ${date_of_birth || "-"}</p>
+                <p><b>Phone:</b> ${phone}</p>               
               `,
               attachments: resume
                 ? [
@@ -88,9 +85,9 @@ export const submitCareerApplication = (req, res) => {
             success: true,
             message: "Application submitted successfully",
           });
-        }
+        },
       );
-    }
+    },
   );
 };
 
@@ -98,13 +95,13 @@ const addCareerEmail = (req, res) => {
   db.query(
     "INSERT INTO career_emails (email) VALUES (?)",
     [req.body.email],
-    () => res.json({ success: true })
+    () => res.json({ success: true }),
   );
 };
 
 const getCareerEmails = (req, res) => {
   db.query("SELECT * FROM career_emails", (_, rows) =>
-    res.json({ success: true, data: rows })
+    res.json({ success: true, data: rows }),
   );
 };
 
@@ -112,18 +109,18 @@ const updateCareerEmailStatus = (req, res) => {
   db.query(
     "UPDATE career_emails SET is_active=? WHERE id=?",
     [Number(req.body.is_active), req.params.id],
-    () => res.json({ success: true })
+    () => res.json({ success: true }),
   );
 };
 
 const deleteCareerEmail = (req, res) => {
   db.query("DELETE FROM career_emails WHERE id=?", [req.params.id], () =>
-    res.json({ success: true })
+    res.json({ success: true }),
   );
 };
 
 const getCareerApplications = (req, res) => {
-  const BASE_URL = `${req.protocol}://${req.get("host")}`;
+  const REACT_BASE_URL = `${req.protocol}://${req.get("host")}`;
 
   db.query(
     "SELECT * FROM career_applications ORDER BY created_at DESC",
@@ -139,7 +136,7 @@ const getCareerApplications = (req, res) => {
       const updatedRows = rows.map((item) => ({
         ...item,
         resume: item.resume
-          ? `${BASE_URL}/uploads/resume/${item.resume}`
+          ? `${REACT_BASE_URL}/uploads/resume/${item.resume}`
           : null,
       }));
 
@@ -148,12 +145,12 @@ const getCareerApplications = (req, res) => {
         message: "Career Applications fetched successfully ✅",
         data: updatedRows,
       });
-    }
+    },
   );
 };
 const deleteCareerApplication = (req, res) => {
   db.query("DELETE FROM career_applications WHERE id=?", [req.params.id], () =>
-    res.json({ success: true })
+    res.json({ success: true }),
   );
 };
 

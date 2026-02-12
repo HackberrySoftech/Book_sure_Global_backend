@@ -1,6 +1,6 @@
 import db from "../../config/db.js";
 import fs from "fs";
-const BASE_URL = process.env.BASE_URL || "http://localhost:8000";
+const REACT_BASE_URL = process.env.REACT_BASE_URL || "http://localhost:8000";
 
 export const addGallery = (req, res) => {
   if (!req.files || req.files.length === 0) {
@@ -42,7 +42,7 @@ export const getAllGallery = (req, res) => {
     const data = rows.map(item => ({
       ...item,
       image: item.image
-        ? `${BASE_URL}/${item.image}`
+        ? `${REACT_BASE_URL}/${item.image}`
         : null,
     }));
 
@@ -62,7 +62,7 @@ export const getActiveGallery = (req, res) => {
       const data = rows.map(item => ({
         ...item,
         image: item.image
-          ? `${BASE_URL}/${item.image}`
+          ? `${REACT_BASE_URL}/${item.image}`
           : null,
       }));
 
@@ -82,7 +82,7 @@ export const getInactiveGallery = (req, res) => {
       const data = rows.map(item => ({
         ...item,
         image: item.image
-          ? `${BASE_URL}/${item.image}`
+          ? `${REACT_BASE_URL}/${item.image}`
           : null,
       }));
 

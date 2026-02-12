@@ -1,6 +1,6 @@
 import db from "../config/db.js";
 
-const BASE_URL = process.env.BASE_URL || "http://localhost:8000";
+const REACT_BASE_URL = process.env.REACT_BASE_URL || "http://localhost:8000";
 
 /* ✅ IMAGE URL HELPER */
 export const getImageUrl = (file, folder = "data_security") => {
@@ -9,10 +9,10 @@ export const getImageUrl = (file, folder = "data_security") => {
   if (file.startsWith("http")) return file;
 
   if (file.startsWith("/uploads")) {
-    return `${BASE_URL}${file}`;
+    return `${REACT_BASE_URL}${file}`;
   }
 
-  return `${BASE_URL}/uploads/${folder}/${file}`;
+  return `${REACT_BASE_URL}/uploads/${folder}/${file}`;
 };
 
 /* ================================================= */
