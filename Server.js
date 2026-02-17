@@ -26,6 +26,7 @@ import adminRoutes from "./routes/AuthRoutes.js";
 import ourassociateRoutes from "./routes/ourassociateRoutes.js";
 import servicesRoutes from "./routes/Services/servicesRoutes.js";
 import subServicesRoutes from "./routes/Services/subServicesRoutes.js";
+import calendlyRoutes from "./routes/calendlyRoutes.js";
 // DB
 import "./config/db.js";
 
@@ -93,8 +94,25 @@ app.use("/api/blogs", BlogRoutes);
 app.use("/api/aboutmain", Aboutcontroller);
 
 app.use("/api/career", careerRoutes);
+
+app.use("/api/calendly", calendlyRoutes);
+
+
+
+
+
+
 /* ===== ERROR HANDLER (LAST) ===== */
 app.use(errorHandler);
+
+
+
+
+
+
+
+
+
 
 /* ===== SERVER ===== */
 const PORT = process.env.PORT || 8000;
