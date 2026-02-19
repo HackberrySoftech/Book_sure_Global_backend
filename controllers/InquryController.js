@@ -4,7 +4,7 @@ import mailTransporter from "../config/Mail.js";
 export const submitPricingInquiry = (req, res) => {
   const { plan, name, phone, email, message } = req.body;
 
-  if ( !name || !phone || !email || !message) {
+  if (!name || !phone || !email || !message) {
     return res.status(400).json({
       success: false,
       message: "All fields are required",
@@ -13,12 +13,11 @@ export const submitPricingInquiry = (req, res) => {
 
   // 1️⃣ Save inquiry
   db.query(
-    `INSERT INTO pricing_inquiries
-     ( name, phone, email, message)
-     VALUES (?, ?, ?, ?)`,
-    [ name, phone, email, message],
+    "INSERT INTO pricing_inquiries (name, phone, email, message) VALUES (?, ?, ?, ?)",
+    [name, phone, email, message],
     (err) => {
       if (err) {
+        console.error("DB Error:", err);   // 👈 ADD THIS
         return res.status(500).json({
           success: false,
           message: "Failed to submit inquiry",
@@ -39,14 +38,13 @@ export const submitPricingInquiry = (req, res) => {
           const adminEmails = rows.map((r) => r.email);
 
           try {
-            // 3️⃣ Send mail from SERVER to ADMINS
             await mailTransporter.sendMail({
               from: `"Pricing Inquiry" <${process.env.MAIL_USER}>`,
-              to: adminEmails.join(","), // ✅ ALL DB EMAILS
-              replyTo: email, // ✅ reply goes to user
+              to: adminEmails.join(","),
+              replyTo: email,
               subject: `New Pricing Inquiry – ${plan}`,
               html: `
-                <h3>New Pricing Inquiry</h3>            
+                <h3>New Pricing Inquiry</h3>
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Phone:</strong> ${phone}</p>
@@ -61,9 +59,9 @@ export const submitPricingInquiry = (req, res) => {
             success: true,
             message: "Inquiry submitted successfully",
           });
-        },
+        }
       );
-    },
+    }
   );
 };
 export const getPricingInquiries = (req, res) => {
